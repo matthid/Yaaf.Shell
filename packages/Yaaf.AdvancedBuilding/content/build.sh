@@ -33,7 +33,7 @@ function do_build {
     fi
 
     echo "restore paket packages"
-    $MONO .paket/paket.exe -v restore
+    $MONO .paket/paket.exe -v restore 0.38.2
     exit_code=$?
     if [ $exit_code -ne 0 ]; then
       exit $exit_code
