@@ -1,0 +1,15 @@
+source https://nuget.org/api/v2
+
+// Build
+nuget FsUnit
+nuget Yaaf.AdvancedBuilding
+nuget NuGet.CommandLine
+nuget NUnit.Runners
+// Projects
+nuget Yaaf.FSharp.Helper
+nuget Mono.Posix
+nuget FSharp.Core
+nuget NUnit == 2.6.3
+// Test
+nuget Unquote
+nuget FSharp.Core
