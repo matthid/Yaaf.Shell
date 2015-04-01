@@ -4,9 +4,11 @@ then
   ./bootstrap.sh
 fi
 
-"packages/Yaaf.AdvancedBuilding/content/build.sh" $@
+build="packages/Yaaf.AdvancedBuilding/content/build.sh"
+chmod +x $build
+. $build
 
-#do_build $@
+do_build $@
 
 #if [ ! -d "temp" ]; then
 #  mkdir temp

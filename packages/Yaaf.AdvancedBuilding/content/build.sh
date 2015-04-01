@@ -26,7 +26,7 @@ function do_build {
   if [ -f ".paket/paket.bootstrapper.exe" ];
   then
     echo "Bootstrap paket"
-    $MONO .paket/paket.bootstrapper.exe 0.37.0
+    $MONO .paket/paket.bootstrapper.exe
     exit_code=$?
     if [ $exit_code -ne 0 ]; then
       exit $exit_code
