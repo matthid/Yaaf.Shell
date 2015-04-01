@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Facility - Yaaf.Shell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Matthias Dittrich">
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/style.css" />
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/prism.css" />
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/tips.js"></script>
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/prism.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://tpetricek.github.io/FSharp.Formatting/"><img height="16" width="16" src="https://matthid.github.io/Yaaf.AdvancedBuilding/content/img/FSharp.Formatting.png" /> F# Formatting</a></li>
+        </ul>
+        <h3 class="muted"><a href="https://matthid.github.io/Yaaf.Shell/index.html">Yaaf.Shell</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Facility </h1>
+<div class="xmldoc">
+    Defined in Yaaf.Shell.dll.
+</div>
+<div class="xmldoc">
+</div>
+  <h3>Union Cases</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Union Case</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '94', 94)" onmouseover="showTip(event, '94', 94)">
+            Auth
+          </code>
+          <div class="tip" id="94">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L287-287" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The authorization system: login(1), su(1), getty(8), etc.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '95', 95)" onmouseover="showTip(event, '95', 95)">
+            AuthPriv
+          </code>
+          <div class="tip" id="95">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L289-289" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The same as SyslogFacility.LOG_AUTH, but logged to a file readable only by selected individuals.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '96', 96)" onmouseover="showTip(event, '96', 96)">
+            Cron
+          </code>
+          <div class="tip" id="96">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L291-291" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The cron daemon: cron(8).
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '97', 97)" onmouseover="showTip(event, '97', 97)">
+            Deamon
+          </code>
+          <div class="tip" id="97">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L293-293" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ System daemons, such as routed(8), that are not provided for explicitly by other facilities.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '98', 98)" onmouseover="showTip(event, '98', 98)">
+            Ftp
+          </code>
+          <div class="tip" id="98">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L295-295" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The file transfer protocol daemons: ftpd(8), tftpd(8), etc.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '99', 99)" onmouseover="showTip(event, '99', 99)">
+            Kern
+          </code>
+          <div class="tip" id="99">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L297-297" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ Messages generated by the kernel. These cannot be generated by any user processes.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '100', 100)" onmouseover="showTip(event, '100', 100)">
+            Local(int)
+          </code>
+          <div class="tip" id="100">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L299-299" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ Reserved for local use (0-7).
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '101', 101)" onmouseover="showTip(event, '101', 101)">
+            Lpr
+          </code>
+          <div class="tip" id="101">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L301-301" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The line printer spooling system: lpr(1), lpc(8), lpd(8), etc.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '102', 102)" onmouseover="showTip(event, '102', 102)">
+            Mail
+          </code>
+          <div class="tip" id="102">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L303-303" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The mail system.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '103', 103)" onmouseover="showTip(event, '103', 103)">
+            News
+          </code>
+          <div class="tip" id="103">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L305-305" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The network news system.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '104', 104)" onmouseover="showTip(event, '104', 104)">
+            Syslog
+          </code>
+          <div class="tip" id="104">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L307-307" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ Messages generated internally by syslogd(8).
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '105', 105)" onmouseover="showTip(event, '105', 105)">
+            User
+          </code>
+          <div class="tip" id="105">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L309-309" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ Messages generated by random user processes. This is the default facility identifier if non is specified.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '106', 106)" onmouseover="showTip(event, '106', 106)">
+            Uucp
+          </code>
+          <div class="tip" id="106">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L311-311" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The uucp system.
+</br>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="https://matthid.github.io/Yaaf.Shell/index.html">
+            <img src="https://matthid.github.io/Yaaf.Shell/content/img/logo.png" style="width:140px;height:140px;margin:10px 0px 0px 35px;border-style:none;" />
+          </a>
+
+          <ul class="nav nav-list" id="menu">
+
+            <li class="nav-header">Yaaf.Shell</li>
+
+            <li class="divider"></li>
+            <li><a href="https://www.nuget.org/packages/Yaaf.Shell/">Get Yaaf.Shell package via NuGet</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell">Source Code</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues">Open bugs and feature requests</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues/new">Report Issue or Request Feature</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/blob/develop/LICENSE.md">License (MIT)</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/Contributing.html">Contributing</a></li>
+            
+            <li class="nav-header">Documentation</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/index.html">Quick Intro</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/ReleaseNotes.html">Release Notes</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/DevelopReadme.html">Development Intro</a></li>
+
+            <li class="nav-header">Reference</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/references/index.html">API Reference</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+      <a href="https://github.com/matthid/Yaaf.Shell"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </body>
+  </html>

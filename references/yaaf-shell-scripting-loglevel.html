@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Loglevel - Yaaf.Shell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Matthias Dittrich">
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/style.css" />
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/prism.css" />
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/tips.js"></script>
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/prism.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://tpetricek.github.io/FSharp.Formatting/"><img height="16" width="16" src="https://matthid.github.io/Yaaf.AdvancedBuilding/content/img/FSharp.Formatting.png" /> F# Formatting</a></li>
+        </ul>
+        <h3 class="muted"><a href="https://matthid.github.io/Yaaf.Shell/index.html">Yaaf.Shell</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Loglevel </h1>
+<div class="xmldoc">
+    Defined in Yaaf.Shell.dll.
+</div>
+<div class="xmldoc">
+
+ Documentation from http://www.ypass.net/blog/2012/06/introduction-to-syslog-log-levelspriorities/
+</br></div>
+  <h3>Union Cases</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Union Case</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '107', 107)" onmouseover="showTip(event, '107', 107)">
+            Alert
+          </code>
+          <div class="tip" id="107">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L272-272" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The application is unstable and a crash is imminent. This will generate a message on the console and on root terminals. This should not normally be used applications outside of the system level (filesystems, kernel, etc).
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '108', 108)" onmouseover="showTip(event, '108', 108)">
+            Critical
+          </code>
+          <div class="tip" id="108">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L274-274" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+  A serious error occurred during application execution. Someone (systems administrators and/or developers) should be notified and should take action to correct the issue.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '109', 109)" onmouseover="showTip(event, '109', 109)">
+            Debug
+          </code>
+          <div class="tip" id="109">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L284-284" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+  Detailed error messages describing the exact state of internal variables that may be helpful when debugging problems.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '110', 110)" onmouseover="showTip(event, '110', 110)">
+            Emergency
+          </code>
+          <div class="tip" id="110">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L270-270" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The application has completely crashed and is no longer functioning. Normally, this will generate a message on the console as well as all root terminals. This is the most serious error possible. This should not normally be used applications outside of the system level (filesystems, kernel, etc). This usually means the entire system has crashed.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '111', 111)" onmouseover="showTip(event, '111', 111)">
+            Error
+          </code>
+          <div class="tip" id="111">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L276-276" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ An error occurred that should be logged, however it is not critical. The error may be transient by nature, but it should be logged to help debug future problems via error message trending. For example, if a connection to a remote server failed, but it will be retried automatically and is fairly self-healing, it is not critical. But if it fails every night at 2AM, you can look through the logs to find the trend.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '112', 112)" onmouseover="showTip(event, '112', 112)">
+            Info
+          </code>
+          <div class="tip" id="112">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L282-282" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ For completely informational purposes, the application is simply logging what it is doing. This is useful when trying to find out where an error message is occurring during code execution.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '113', 113)" onmouseover="showTip(event, '113', 113)">
+            Notice
+          </code>
+          <div class="tip" id="113">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L280-280" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+  The application has detected a situation that it was aware of, it can continue, but the condition is possibly incorrect.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '114', 114)" onmouseover="showTip(event, '114', 114)">
+            Warning
+          </code>
+          <div class="tip" id="114">
+            <strong>Signature:</strong> <br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/Scripting.fs#L278-278" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ The application encountered a situation that it was not expecting, but it can continue. The application should log the unexpected condition and continue on.
+</br>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="https://matthid.github.io/Yaaf.Shell/index.html">
+            <img src="https://matthid.github.io/Yaaf.Shell/content/img/logo.png" style="width:140px;height:140px;margin:10px 0px 0px 35px;border-style:none;" />
+          </a>
+
+          <ul class="nav nav-list" id="menu">
+
+            <li class="nav-header">Yaaf.Shell</li>
+
+            <li class="divider"></li>
+            <li><a href="https://www.nuget.org/packages/Yaaf.Shell/">Get Yaaf.Shell package via NuGet</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell">Source Code</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues">Open bugs and feature requests</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues/new">Report Issue or Request Feature</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/blob/develop/LICENSE.md">License (MIT)</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/Contributing.html">Contributing</a></li>
+            
+            <li class="nav-header">Documentation</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/index.html">Quick Intro</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/ReleaseNotes.html">Release Notes</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/DevelopReadme.html">Development Intro</a></li>
+
+            <li class="nav-header">Reference</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/references/index.html">API Reference</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+      <a href="https://github.com/matthid/Yaaf.Shell"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </body>
+  </html>

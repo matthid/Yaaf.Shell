@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>StreamModule - Yaaf.Shell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Matthias Dittrich">
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/style.css" />
+    <link type="text/css" rel="stylesheet" href="https://matthid.github.io/Yaaf.Shell/content/prism.css" />
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/tips.js"></script>
+    <script type="text/javascript" src="https://matthid.github.io/Yaaf.Shell/content/prism.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://tpetricek.github.io/FSharp.Formatting/"><img height="16" width="16" src="https://matthid.github.io/Yaaf.AdvancedBuilding/content/img/FSharp.Formatting.png" /> F# Formatting</a></li>
+        </ul>
+        <h3 class="muted"><a href="https://matthid.github.io/Yaaf.Shell/index.html">Yaaf.Shell</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>StreamModule</h1>
+<div class="xmldoc">
+    Defined in Yaaf.Shell.dll.
+</div>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="yaaf-shell-streammodule-streamhelper.html">StreamHelper</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table table-bordered module-list">
+    <thead>
+      <tr><td>Module</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="module-name">
+            <a href="yaaf-shell-streammodule-streamextensions.html">StreamExtensions</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '42', 42)" onmouseover="showTip(event, '42', 42)">
+            appendFront data s
+          </code>
+          <div class="tip" id="42">
+            <strong>Signature:</strong> data:&#39;?6201 -&gt; s:IStream&lt;&#39;?6201&gt; -&gt; IStream&lt;&#39;?6201&gt;<br />
+                          <strong>Type parameters:</strong> '?6201          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L414-414" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '43', 43)" onmouseover="showTip(event, '43', 43)">
+            buffer stream
+          </code>
+          <div class="tip" id="43">
+            <strong>Signature:</strong> stream:IStream&lt;&#39;?6197&gt; -&gt; IStream&lt;&#39;?6197&gt; * IStream&lt;&#39;?6197&gt;<br />
+                          <strong>Type parameters:</strong> '?6197          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L404-404" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '44', 44)" onmouseover="showTip(event, '44', 44)">
+            combineReadAndWrite s1 s2
+          </code>
+          <div class="tip" id="44">
+            <strong>Signature:</strong> s1:IStream&lt;&#39;?6199&gt; -&gt; s2:IStream&lt;&#39;?6199&gt; -&gt; IStream&lt;&#39;?6199&gt;<br />
+                          <strong>Type parameters:</strong> '?6199          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L412-412" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
+            crossStream s1 s2
+          </code>
+          <div class="tip" id="45">
+            <strong>Signature:</strong> s1:IStream&lt;&#39;?6203&gt; -&gt; s2:IStream&lt;&#39;?6203&gt; -&gt; IStream&lt;&#39;?6203&gt; * IStream&lt;&#39;?6203&gt;<br />
+                          <strong>Type parameters:</strong> '?6203          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L424-424" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
+            defaultError 
+          </code>
+          <div class="tip" id="46">
+            <strong>Signature:</strong> Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L542-542" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
+            defaultInput 
+          </code>
+          <div class="tip" id="47">
+            <strong>Signature:</strong> Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L542-542" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
+            defaultOutput 
+          </code>
+          <div class="tip" id="48">
+            <strong>Signature:</strong> Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L542-542" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
+            duplicate s
+          </code>
+          <div class="tip" id="49">
+            <strong>Signature:</strong> s:IStream&lt;&#39;?6212&gt; -&gt; IStream&lt;&#39;?6212&gt; * IStream&lt;&#39;?6212&gt;<br />
+                          <strong>Type parameters:</strong> '?6212          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L455-455" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+ Duplicates the given stream, which means returning two stream instances
+ which will read the same data. 
+ At the same time buffers all data (ie read from s as fast as possible).
+ Any data written to the returned instances will be written to the given instance.
+</br>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
+            filterRead f s
+          </code>
+          <div class="tip" id="50">
+            <strong>Signature:</strong> f:(&#39;?6208 option -&gt; bool) -&gt; s:IStream&lt;&#39;?6208&gt; -&gt; IStream&lt;&#39;?6208&gt;<br />
+                          <strong>Type parameters:</strong> '?6208          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L434-434" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+            filterWrite f s
+          </code>
+          <div class="tip" id="51">
+            <strong>Signature:</strong> f:(&#39;?6210 -&gt; bool) -&gt; s:IStream&lt;&#39;?6210&gt; -&gt; IStream&lt;&#39;?6210&gt;<br />
+                          <strong>Type parameters:</strong> '?6210          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L444-444" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
+            fromInterface istream
+          </code>
+          <div class="tip" id="52">
+            <strong>Signature:</strong> istream:IStream&lt;byte array&gt; -&gt; Stream<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L305-305" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
+            fromReadWrite read write
+          </code>
+          <div class="tip" id="53">
+            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?6186 option&gt;) -&gt; write:(&#39;?6186 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?6186&gt;<br />
+                          <strong>Type parameters:</strong> '?6186          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L343-343" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
+            fromReadWriteDispose dis read write
+          </code>
+          <div class="tip" id="54">
+            <strong>Signature:</strong> dis:(unit -&gt; unit) -&gt; read:(unit -&gt; Async&lt;&#39;?6184 option&gt;) -&gt; write:(&#39;?6184 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?6184&gt;<br />
+                          <strong>Type parameters:</strong> '?6184          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L335-335" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
+            getStandardError 
+          </code>
+          <div class="tip" id="55">
+            <strong>Signature:</strong> unit -&gt; IStream&lt;byte []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L553-553" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
+            getStandardInput 
+          </code>
+          <div class="tip" id="56">
+            <strong>Signature:</strong> unit -&gt; IStream&lt;byte []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L544-544" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
+            getStandardOutput 
+          </code>
+          <div class="tip" id="57">
+            <strong>Signature:</strong> unit -&gt; IStream&lt;byte []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L550-550" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+            infiniteStream ()
+          </code>
+          <div class="tip" id="58">
+            <strong>Signature:</strong> unit -&gt; IStream&lt;&#39;a&gt;<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L370-370" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
+            limitedStream ()
+          </code>
+          <div class="tip" id="59">
+            <strong>Signature:</strong> unit -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;?6195&gt;<br />
+                          <strong>Type parameters:</strong> '?6195          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L403-403" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
+            map f g s
+          </code>
+          <div class="tip" id="60">
+            <strong>Signature:</strong> f:(&#39;?6205 option -&gt; &#39;?6206 option) -&gt; g:(&#39;?6206 -&gt; &#39;?6205) -&gt; s:IStream&lt;&#39;?6205&gt; -&gt; IStream&lt;&#39;?6206&gt;<br />
+                          <strong>Type parameters:</strong> '?6205, '?6206          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L427-427" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
+            ofSeq write s
+          </code>
+          <div class="tip" id="61">
+            <strong>Signature:</strong> write:(&#39;?6218 -&gt; Async&lt;unit&gt;) -&gt; s:AsyncSeq&lt;&#39;?6218 option&gt; -&gt; IStream&lt;&#39;?6218&gt;<br />
+                          <strong>Type parameters:</strong> '?6218          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L483-483" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
+            redirect bufferLen toStream fromStream
+          </code>
+          <div class="tip" id="62">
+            <strong>Signature:</strong> bufferLen:int -&gt; toStream:IStream&lt;&#39;?6220&gt; -&gt; fromStream:IStream&lt;&#39;?6220&gt; -&gt; int -&gt; bool -&gt; unit<br />
+                          <strong>Type parameters:</strong> '?6220          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L494-494" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
+            split f s
+          </code>
+          <div class="tip" id="63">
+            <strong>Signature:</strong> f:(&#39;?6214 option -&gt; bool) -&gt; s:IStream&lt;&#39;?6214&gt; -&gt; IStream&lt;&#39;?6214&gt; * IStream&lt;&#39;?6214&gt;<br />
+                          <strong>Type parameters:</strong> '?6214          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L474-474" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
+            toCancelAbleStream s
+          </code>
+          <div class="tip" id="64">
+            <strong>Signature:</strong> s:IStream&lt;&#39;?6182&gt; -&gt; IStream&lt;&#39;?6182&gt;<br />
+                          <strong>Type parameters:</strong> '?6182          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L334-334" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
+            toInterface buffersize stream
+          </code>
+          <div class="tip" id="65">
+            <strong>Signature:</strong> buffersize:int -&gt; stream:Stream -&gt; IStream&lt;byte []&gt;<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L345-345" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
+            toLimitedStream raw
+          </code>
+          <div class="tip" id="66">
+            <strong>Signature:</strong> raw:IStream&lt;&#39;?6193 option&gt; -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;?6193&gt;<br />
+                          <strong>Type parameters:</strong> '?6193          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L374-374" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
+            toMaybeRead read ()
+          </code>
+          <div class="tip" id="67">
+            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?6189&gt;) -&gt; unit -&gt; Async&lt;&#39;?6189 option&gt;<br />
+                          <strong>Type parameters:</strong> '?6189          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L365-365" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
+            toSeq s
+          </code>
+          <div class="tip" id="68">
+            <strong>Signature:</strong> s:IStream&lt;&#39;?6216&gt; -&gt; AsyncSeq&lt;&#39;?6216 option&gt;<br />
+                          <strong>Type parameters:</strong> '?6216          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L478-478" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <a href="https://matthid.github.io/Yaaf.Shell/index.html">
+            <img src="https://matthid.github.io/Yaaf.Shell/content/img/logo.png" style="width:140px;height:140px;margin:10px 0px 0px 35px;border-style:none;" />
+          </a>
+
+          <ul class="nav nav-list" id="menu">
+
+            <li class="nav-header">Yaaf.Shell</li>
+
+            <li class="divider"></li>
+            <li><a href="https://www.nuget.org/packages/Yaaf.Shell/">Get Yaaf.Shell package via NuGet</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell">Source Code</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues">Open bugs and feature requests</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/issues/new">Report Issue or Request Feature</a></li>
+            <li><a href="https://github.com/matthid/Yaaf.Shell/blob/develop/LICENSE.md">License (MIT)</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/Contributing.html">Contributing</a></li>
+            
+            <li class="nav-header">Documentation</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/index.html">Quick Intro</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/ReleaseNotes.html">Release Notes</a></li>
+            <li><a href="https://matthid.github.io/Yaaf.Shell/DevelopReadme.html">Development Intro</a></li>
+
+            <li class="nav-header">Reference</li>
+              
+            <li><a href="https://matthid.github.io/Yaaf.Shell/references/index.html">API Reference</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+      <a href="https://github.com/matthid/Yaaf.Shell"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </body>
+  </html>
