@@ -18,7 +18,7 @@ NUGET
     NUnit (2.6.3)
     NUnit.Runners (2.6.4)
     Unquote (2.2.2)
-    Yaaf.AdvancedBuilding (0.5.3)
+    Yaaf.AdvancedBuilding (0.5.4)
       FAKE (3.23.0)
       FSharp.Compiler.Service (0.0.86)
       FSharp.Formatting (2.7.5)
