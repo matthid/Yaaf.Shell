@@ -43,6 +43,7 @@ let buildConfig =
     PageAuthor = "Matthias Dittrich"
     GithubUser = "matthid"
     Version = release.NugetVersion
+    RestrictReleaseToWindows = false
     NugetPackages =
       [ "Yaaf.Shell.nuspec", (fun config p ->
           { p with
