@@ -17,11 +17,11 @@ let isUnix =
     (p = 4) || (p = 6) || (p = 128)
 /// http://www.mono-project.com/Guide:_Porting_Winforms_Applications
 let isMono =
-    System.Type.GetType ("Mono.Runtime") <> null
+    System.Type.GetType "Mono.Runtime" |> isNull |> not
 
 let escapeArg (arg:string) = 
     sprintf "\"%s\"" (arg.Replace("\"", "\\\""))
-module WindowsScripting =     
+module WindowsScripting =
     let isAdmin = 
         let identity = WindowsIdentity.GetCurrent()
         let principal = new WindowsPrincipal(identity)
@@ -30,7 +30,7 @@ module WindowsScripting =
     let ensureAdmin () = 
         if isUnix then
             failwith "use only on windows"
-        if not isAdmin then            
+        if not isAdmin then
             let exeName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName
             let startInfo = new ProcessStartInfo(exeName)
             startInfo.Arguments <- 
@@ -75,14 +75,14 @@ type Output<'a> = {
 let execFull (ct:System.Threading.CancellationToken) throwOnExitCode prog args prevState =
     let input, exit =
         match prevState with
-        | Full (out, err, exit) -> out, Some exit
+        | Full (out, _, exit) -> out, Some exit
         | Input inp -> inp, None
     let closeOut, outStream = limitedStream()
     let closeErr, errStream = limitedStream()
     let proc = new ToolProcess(prog, System.Environment.CurrentDirectory, args)
     proc.ThrowOnExitCode <- throwOnExitCode
     async { 
-        let! finished = Async.AwaitWaitHandle(ct.WaitHandle)
+        let! _ = Async.AwaitWaitHandle(ct.WaitHandle)
         try
             proc.Kill()
         with
@@ -115,13 +115,13 @@ let execTimeout (timeout:System.TimeSpan) prog args prevState =
     cts.CancelAfter(timeout)
     execFull cts.Token true prog args prevState
 
-let read prevState =     
+let read prevState =
     match prevState with
     | Full (out, err, exit) ->
         { Output = out; Error = err; Task = exit }
-    | Input inp -> failwith "pipe exec into readdata"
+    | Input _ -> failwith "pipe exec into readdata"
 
-let convertOut convert output =    
+let convertOut convert output =
     { Output = convert output.Output; Error = convert output.Error; Task = output.Task }
     
 let ConvStreamReader s = 
@@ -132,7 +132,7 @@ let ConvString (s:System.IO.StreamReader) = s.ReadToEnd()
 let rec ConvAsyncSeq (reader:System.IO.StreamReader) = 
     asyncSeq {
         let! line = reader.ReadLineAsync() |> Async.AwaitTask
-        if line <> null then
+        if not <| isNull line then
             yield line
             yield! ConvAsyncSeq reader
     }
@@ -173,15 +173,15 @@ let rec cp (options:SimpleOptions<CopyOptions>) source dest =
                     File.Copy(source, dest, options.HasFlag CopyOptions.Overwrite)
             elif Directory.Exists dest then
                 // Copy to /item1/item2
-                let name =Path.GetFileName source
-                let newDest = Path.Combine(dest, name)            
-                File.Copy(source, dest, options.HasFlag CopyOptions.Overwrite)
-            else            
+                let name = Path.GetFileName source
+                let newDest = Path.Combine(dest, name)
+                File.Copy(source, newDest, options.HasFlag CopyOptions.Overwrite)
+            else
                 File.Copy(source, dest, options.HasFlag CopyOptions.Overwrite)
         with | :? IOException as e when doIgnore ->  ignoreFun e
     |_ when Directory.Exists source ->
         try
-            let toCopy = Directory.EnumerateFileSystemEntries(source)      
+            let toCopy = Directory.EnumerateFileSystemEntries(source)
             let doCopy dest items = 
                 if options.HasFlag CopyOptions.Rec then
                     items
@@ -209,7 +209,7 @@ let rec cp (options:SimpleOptions<CopyOptions>) source dest =
                 // Just copy to this dir
                 Directory.CreateDirectory(dest)|>ignore
                 toCopy
-                |> doCopy dest      
+                |> doCopy dest
         with | :? IOException as e when doIgnore ->  ignoreFun e
     | _ -> failwith "Source not found!"
 
@@ -246,7 +246,7 @@ let rec doRec traverse f item =
                 |> Seq.iter (fun item -> doRec true f item)
     | _ -> failwithf "item %s not found" item
 let chown (options:ChownOptions) (user:Mono.Unix.UnixUserInfo) (group:Mono.Unix.UnixGroupInfo) dest = 
-    let chownSimple isFile item =
+    let chownSimple _ item =
         let entry = Mono.Unix.UnixFileSystemInfo.GetFileSystemEntry item
         entry.SetOwner(user, group)
     
@@ -258,9 +258,9 @@ type CmodOptions =
     | Rec = 1 
 
 /// http://www.tutorialspoint.com/unix_system_calls/chmod.htm
-let chmod (options:CmodOptions) rights dest =     
+let chmod (options:CmodOptions) rights dest =
     //let entry = Mono.Unix.UnixFileSystemInfo.GetFileSystemEntry dest
-    let chmodSimple isFile item =
+    let chmodSimple _ item =
         let r = Mono.Unix.Native.Syscall.chmod (item, rights)
         Mono.Unix.UnixMarshal.ThrowExceptionForLastErrorIf (r)
     doRec (options.HasFlag CmodOptions.Rec) chmodSimple dest
@@ -314,55 +314,66 @@ type Facility =
 let mutable logger = None
 let mutable private isLoggingSet = false
 let mutable DefaultFacility = Facility.User
-let setupUnixLogging name options =  
-    let convertFacility facility =         
-        match facility with
-        | Auth -> Mono.Unix.Native.SyslogFacility.LOG_AUTH
-        | AuthPriv -> Mono.Unix.Native.SyslogFacility.LOG_AUTHPRIV
-        | Cron -> Mono.Unix.Native.SyslogFacility.LOG_CRON
-        | Deamon -> Mono.Unix.Native.SyslogFacility.LOG_DAEMON
-        | Ftp -> Mono.Unix.Native.SyslogFacility.LOG_FTP
-        | Kern -> Mono.Unix.Native.SyslogFacility.LOG_KERN
-        | Local i ->
-            match i with
-            | 0 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL0
-            | 1 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL1
-            | 2 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL2
-            | 3 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL3
-            | 4 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL4
-            | 5 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL5
-            | 6 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL6
-            | 7 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL7
-            | _ -> failwith "Invalid local facility number"
+let private convertFacility facility = 
+  match facility with
+  | Auth -> Mono.Unix.Native.SyslogFacility.LOG_AUTH
+  | AuthPriv -> Mono.Unix.Native.SyslogFacility.LOG_AUTHPRIV
+  | Cron -> Mono.Unix.Native.SyslogFacility.LOG_CRON
+  | Deamon -> Mono.Unix.Native.SyslogFacility.LOG_DAEMON
+  | Ftp -> Mono.Unix.Native.SyslogFacility.LOG_FTP
+  | Kern -> Mono.Unix.Native.SyslogFacility.LOG_KERN
+  | Local i ->
+    match i with
+    | 0 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL0
+    | 1 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL1
+    | 2 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL2
+    | 3 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL3
+    | 4 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL4
+    | 5 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL5
+    | 6 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL6
+    | 7 -> Mono.Unix.Native.SyslogFacility.LOG_LOCAL7
+    | _ -> failwith "Invalid local facility number"
                         
-        | Lpr -> Mono.Unix.Native.SyslogFacility.LOG_LPR
-        | Mail -> Mono.Unix.Native.SyslogFacility.LOG_MAIL
-        | News -> Mono.Unix.Native.SyslogFacility.LOG_NEWS
-        | Syslog -> Mono.Unix.Native.SyslogFacility.LOG_SYSLOG
-        | User -> Mono.Unix.Native.SyslogFacility.LOG_USER
-        | Uucp -> Mono.Unix.Native.SyslogFacility.LOG_UUCP
+  | Lpr -> Mono.Unix.Native.SyslogFacility.LOG_LPR
+  | Mail -> Mono.Unix.Native.SyslogFacility.LOG_MAIL
+  | News -> Mono.Unix.Native.SyslogFacility.LOG_NEWS
+  | Syslog -> Mono.Unix.Native.SyslogFacility.LOG_SYSLOG
+  | User -> Mono.Unix.Native.SyslogFacility.LOG_USER
+  | Uucp -> Mono.Unix.Native.SyslogFacility.LOG_UUCP
+  
+let private convertLoglevel loglevel =
+  match loglevel with
+  | Emergency -> Mono.Unix.Native.SyslogLevel.LOG_EMERG
+  | Alert -> Mono.Unix.Native.SyslogLevel.LOG_ALERT
+  | Critical -> Mono.Unix.Native.SyslogLevel.LOG_CRIT
+  | Debug -> Mono.Unix.Native.SyslogLevel.LOG_DEBUG
+  | Error -> Mono.Unix.Native.SyslogLevel.LOG_ERR
+  | Info -> Mono.Unix.Native.SyslogLevel.LOG_INFO
+  | Notice -> Mono.Unix.Native.SyslogLevel.LOG_NOTICE
+  | Warning -> Mono.Unix.Native.SyslogLevel.LOG_WARNING
+
+let private syslogLogger (facility:Facility) (loglevel:Loglevel) (msg:string) =
+  let fac = convertFacility facility
+  let level = convertLoglevel loglevel
+  let sysLog m = Mono.Unix.Native.Syscall.syslog(fac, level, m) |> ignore
+  // Syslog seems to hate new lines
+  let newLine = System.Environment.NewLine
+  if msg.Contains newLine || msg.Contains "\n" then
+      let splits = msg.Split ([|newLine; "\n"|], System.StringSplitOptions.None)
+      for s in splits do
+          sysLog s
+  else
+      sysLog msg
+
+let setupUnixLogging name options =
     if isLoggingSet then
-        failwith "only setup logging once: http://lists.ximian.com/pipermail/mono-list/2010-December/046214.html, man openlog(3)"  
+        failwith "only setup logging once: http://lists.ximian.com/pipermail/mono-list/2010-December/046214.html, man openlog(3)"
     Mono.Unix.Native.Syscall.openlog(
         System.Runtime.InteropServices.Marshal.StringToHGlobalAuto(name),
         options,
         convertFacility DefaultFacility) |> ignore
     isLoggingSet <- true
-    logger <-
-        (Some
-            (fun (facility:Facility) (loglevel:Loglevel) (msg:string) -> 
-                let fac = convertFacility facility
-                let level =
-                    match loglevel with
-                    | Emergency -> Mono.Unix.Native.SyslogLevel.LOG_EMERG
-                    | Alert -> Mono.Unix.Native.SyslogLevel.LOG_ALERT
-                    | Critical -> Mono.Unix.Native.SyslogLevel.LOG_CRIT
-                    | Debug -> Mono.Unix.Native.SyslogLevel.LOG_DEBUG
-                    | Error -> Mono.Unix.Native.SyslogLevel.LOG_ERR
-                    | Info -> Mono.Unix.Native.SyslogLevel.LOG_INFO
-                    | Notice -> Mono.Unix.Native.SyslogLevel.LOG_NOTICE
-                    | Warning -> Mono.Unix.Native.SyslogLevel.LOG_WARNING
-                Mono.Unix.Native.Syscall.syslog(fac, level, msg) |> ignore))    
+    logger <- Some syslogLogger
 
 let setupUnixLoggingSafe name options = 
     if not isLoggingSet then
@@ -372,21 +383,11 @@ let logFacility fac level (msg:string) =
     match logger with
     | None -> failwith "setup logging first"
     | Some f -> 
-        // Syslog seems to hate new lines
-        let newLine = System.Environment.NewLine
-        if msg.Contains newLine || msg.Contains "\n" then
-            let splits = msg.Split ([|newLine; "\n"|], System.StringSplitOptions.None)
-            for s in splits do
-                f fac level s
-        else
-            f fac level msg
+        f fac level msg
 let logFacilityf fac level = Printf.ksprintf (logFacility fac level)
 let log level = logFacility DefaultFacility level
 let logf level = Printf.ksprintf (log level)
 
-
-open System.Runtime.InteropServices   //GuidAttribute
-open System.Reflection                //Assembly
 open System.Threading                 //Mutex
 open System.Security.AccessControl    //MutexAccessRule
 open System.Security.Principal        //SecurityIdentifier

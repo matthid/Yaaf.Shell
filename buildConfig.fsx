@@ -43,6 +43,7 @@ let buildConfig =
     PageAuthor = "Matthias Dittrich"
     GithubUser = "matthid"
     Version = release.NugetVersion
+    RestrictReleaseToWindows = false
     NugetPackages =
       [ "Yaaf.Shell.nuspec", (fun config p ->
           { p with
@@ -59,7 +60,6 @@ let buildConfig =
           Attribute.FileVersion config.Version
           Attribute.InformationalVersion config.Version]
       CreateFSharpAssemblyInfo "./src/SharedAssemblyInfo.fs" info)
-    EnableProjectFileCreation = false
     BuildTargets =
      [ { BuildParams.WithSolution with
           // The generated templates

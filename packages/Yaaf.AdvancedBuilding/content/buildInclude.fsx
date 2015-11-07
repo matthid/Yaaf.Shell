@@ -16,25 +16,27 @@
 #else
 // Support when file is opened in Visual Studio
 #load "buildConfigDef.fsx"
+#load "../../../buildConfig.fsx"
 #endif
 
 open BuildConfigDef
 let config = BuildConfig.buildConfig.FillDefaults ()
 
 // NOTE: We want to add that to buildConfigDef.fsx sometimes in the future
-#I @"../../FSharp.Compiler.Service/lib/net40/"
+// #I @"../../FSharp.Compiler.Service/lib/net40/" // included in FAKE, but to be able to use the latest
 // Bundled
 //#I @"../../Yaaf.FSharp.Scripting/lib/net40/"
 #I "../tools/"
 #r "Yaaf.AdvancedBuilding.dll"
 
+
 open Yaaf.AdvancedBuilding
-open System.Collections.Generic
 open System.IO
 open System
 
 open Fake
 open Fake.Git
+open Fake.MSTest
 open Fake.FSharpFormatting
 open AssemblyInfoFile
 
@@ -53,6 +55,27 @@ if config.UseNuget then
       File.Copy(nuget, "./src/.nuget/NuGet.exe", true)
     else
       failwith "you set UseNuget to true but there is no \"./src/.nuget/NuGet.targets\" or \"./src/.nuget/NuGet.Config\"! Please copy them from ./packages/Yaaf.AdvancedBuilding/scaffold/nuget"
+
+let createMissingSymbolFiles assembly =
+  try
+    match File.Exists (Path.ChangeExtension(assembly, "pdb")), File.Exists (assembly + ".mdb") with
+    | true, false when not isLinux ->
+      // create mdb
+      trace (sprintf "Creating mdb for %s" assembly)
+      DebugSymbolHelper.writeMdbFromPdb assembly
+    | true, false ->
+      trace (sprintf "Cannot create mdb for %s because we are not on windows :(" assembly) 
+    | false, true when not isLinux ->
+      // create pdb
+      trace (sprintf "Creating pdb for %s" assembly)
+      DebugSymbolHelper.writePdbFromMdb assembly
+    | false, true ->
+      trace (sprintf "Cannot create pdb for %s because we are not on windows :(" assembly) 
+    | _, _ -> 
+      // either no debug symbols available or already both.
+      ()
+  with exn -> traceError (sprintf "Error creating symbols: %s" exn.Message)
+
 
 let buildWithFiles msg dir projectFileFinder (buildParams:BuildParams) =
     let files = projectFileFinder buildParams |> Seq.toList
@@ -102,6 +125,13 @@ let runTests (buildParams:BuildParams) =
                 DisableShadowCopy = true;
                 OutputFile = "logs/TestResults.xml" } |> config.SetupNUnit)
 
+      if not isLinux then
+        files
+          |> MSTest (fun p ->
+              {p with
+                  WorkingDir = testDir
+                  ResultsDir = "logs" } |> config.SetupMSTest)
+
 let buildAll (buildParams:BuildParams) =
     buildParams.BeforeBuild ()
     buildSolution buildParams
@@ -111,11 +141,25 @@ let buildAll (buildParams:BuildParams) =
     runTests buildParams
     buildParams.AfterTest ()
 
-/// Run the given buildscript with fsi.exe
-let executeFSIWithOutput workingDirectory script args =
+let fakePath = "packages" @@ "FAKE" @@ "tools" @@ "FAKE.exe"
+let fakeStartInfo script workingDirectory args environmentVars =
+    (fun (info: System.Diagnostics.ProcessStartInfo) ->
+        info.FileName <- fakePath
+        info.Arguments <- sprintf "%s --fsiargs -d:FAKE \"%s\"" args script
+        info.WorkingDirectory <- workingDirectory
+        let setVar k v =
+            info.EnvironmentVariables.[k] <- v
+        for (k, v) in environmentVars do
+            setVar k v
+        setVar "MSBuild" msBuildExe
+        setVar "GIT" Git.CommandHelper.gitPath
+        setVar "FSI" fsiPath)
+
+/// Run the given buildscript with FAKE.exe
+let executeFAKEWithOutput workingDirectory script envArgs =
     let exitCode =
         ExecProcessWithLambdas
-            (fsiStartInfo script workingDirectory args)
+            (fakeStartInfo script workingDirectory "" envArgs)
             TimeSpan.MaxValue false ignore ignore
     System.Threading.Thread.Sleep 1000
     exitCode
@@ -123,10 +167,19 @@ let executeFSIWithOutput workingDirectory script args =
 // Documentation
 let buildDocumentationTarget target =
     trace (sprintf "Building documentation (%s), this could take some time, please wait..." target)
-    let exit = executeFSIWithOutput "." "generateDocs.fsx" ["target", target]
+    let exit = executeFAKEWithOutput "." "generateDocs.fsx" ["target", target]
     if exit <> 0 then
         failwith "documentation failed"
     ()
+
+let tryDelete dir =
+    try
+        CleanDirs [ dir ]
+    with
+    | :? System.IO.IOException as e ->
+        traceImportant (sprintf "Cannot access: %s\nTry closing Visual Studio!" e.Message)
+    | :? System.UnauthorizedAccessException as e ->
+        traceImportant (sprintf "Cannot access: %s\nTry closing Visual Studio!" e.Message)
 
 let MyTarget name body =
     Target name (fun _ -> body false)
@@ -135,6 +188,9 @@ let MyTarget name body =
 
 // Targets
 MyTarget "Clean" (fun _ ->
+    tryDelete config.BuildDir
+    tryDelete config.TestDir
+
     CleanDirs [ config.BuildDir; config.TestDir; config.OutLibDir; config.OutDocDir; config.OutNugetDir ]
 )
 
@@ -162,43 +218,17 @@ MyTarget "RestorePackages" (fun _ ->
                 OutputPath = config.NugetPackageDir }))
 )
 
+MyTarget "CreateDebugFiles" (fun _ ->
+    // creates .mdb from .pdb files and the other way around
+    !! (config.GlobalPackagesDir + "/**/*.exe")
+    ++ (config.GlobalPackagesDir + "/**/*.dll")
+    |> Seq.iter createMissingSymbolFiles  
+)
+
 MyTarget "SetVersions" (fun _ -> 
     config.SetAssemblyFileVersions config
 )
 
-MyTarget "CreateProjectFiles" (fun _ ->
-    let generator = new ProjectGenerator("./src/templates")
-    let createdFile = ref false
-    let projectGenFiles =
-      !! "./src/**/*._proj"
-      ++ "./src/**/*._proj.fsx"
-      |> Seq.cache
-    projectGenFiles
-    |> Seq.iter (fun file ->
-      trace (sprintf "Starting project file generation for: %s" file)
-      generator.GenerateProjectFiles(GlobalProjectInfo.Empty, file))
-
-    if projectGenFiles |> Seq.isEmpty |> not then
-      config.BuildTargets
-        |> Seq.filter (fun buildParam -> not (buildParam.DisableProjectFileCreation))
-        |> Seq.iter (fun buildParam ->
-          let solutionDir = sprintf "src/%s" buildParam.SimpleBuildName
-          let projectFiles =
-            buildParam.FindProjectFiles buildParam
-            |> Seq.append (buildParam.FindTestFiles buildParam)
-            |> Seq.map (fun file ->
-              { PathInSolution = ""
-                Project = SolutionGenerator.getSolutionProject solutionDir file })
-            |> Seq.toList
-          let solution = SolutionGenerator.generateSolution projectFiles []
-          let solutionFile = Path.Combine (solutionDir, config.ProjectName + ".sln")
-          use writer = new StreamWriter(File.OpenWrite (solutionFile))
-          SolutionModule.write solution writer
-          writer.Flush()
-        )
-      let exitCode = Shell.Exec(".paket/paket.exe", "install")
-      if exitCode <> 0 then failwithf "paket.exe update failed with exit code: %d" exitCode
-)
 config.BuildTargets
     |> Seq.iter (fun buildParam -> 
         MyTarget (sprintf "Build_%s" buildParam.SimpleBuildName) (fun _ -> buildAll buildParam))
@@ -213,11 +243,20 @@ MyTarget "CopyToRelease" (fun _ ->
     config.BuildTargets
         |> Seq.map (fun buildParam -> buildParam.SimpleBuildName)
         |> Seq.map (fun t -> config.BuildDir @@ t, t)
-        |> Seq.filter (fun (p, t) -> Directory.Exists p)
+        |> Seq.filter (fun (p, _) -> Directory.Exists p)
         |> Seq.iter (fun (source, buildName) ->
             let outDir = outLibDir @@ buildName
             ensureDirectory outDir
             config.GeneratedFileList
+            |> Seq.collect (fun file ->
+              let extension = (Path.GetExtension file).TrimStart('.')
+              match extension with
+              | "dll" | "exe" -> 
+                [ file
+                  Path.ChangeExtension(file, "pdb")
+                  Path.ChangeExtension(file, extension + ".mdb" ) ]              
+              | _ -> [ file ]
+            )
             |> Seq.filter (fun (file) -> File.Exists (source @@ file))
             |> Seq.iter (fun (file) ->
                 let sourceFile = source @@ file
@@ -227,6 +266,12 @@ MyTarget "CopyToRelease" (fun _ ->
         )
 )
 
+MyTarget "CreateReleaseSymbolFiles" (fun _ ->
+    // creates .mdb from .pdb files and the other way around
+    !! (config.OutLibDir + "/**/*.exe")
+    ++ (config.OutLibDir + "/**/*.dll")
+    |> Seq.iter createMissingSymbolFiles  
+)
 
 /// push package (and try again if something fails), FAKE Version doesn't work on mono
 /// From https://raw.githubusercontent.com/fsharp/FAKE/master/src/app/FakeLib/NuGet/NugetHelper.fs
@@ -284,7 +329,7 @@ MyTarget "NuGetPack" (fun _ ->
 )
 
 MyTarget "NuGetPush" (fun _ ->
-    for (nuspecFile, settingsFunc) in config.NugetPackages do
+    for (_, settingsFunc) in config.NugetPackages do
       let packSetup = packSetup config
       let parameters = NuGetDefaults() |> (fun p -> { packSetup p with Publish = true }) |> settingsFunc config
       // This allows us to specify packages which we do not want to push...
@@ -292,17 +337,14 @@ MyTarget "NuGetPush" (fun _ ->
 )
 
 // Documentation 
-
 MyTarget "GithubDoc" (fun _ -> buildDocumentationTarget "GithubDoc")
 
-MyTarget "LocalDoc" (fun _ -> 
-    buildDocumentationTarget "LocalDoc"
-    trace (sprintf "Local documentation has been finished, you can view it by opening %s in your browser!" (Path.GetFullPath (config.OutDocDir @@ "local" @@ "html" @@ "index.html")))
-)
+MyTarget "LocalDoc" (fun _ -> buildDocumentationTarget "LocalDoc")
 
-MyTarget "AllDocs" (fun _ ->
-    buildDocumentationTarget "AllDocs"
-)
+MyTarget "WatchDocs" (fun _ -> buildDocumentationTarget "WatchDocs")
+
+// its just faster to generate all at the same time...
+MyTarget "AllDocs" (fun _ -> buildDocumentationTarget "AllDocs")
 
 MyTarget "ReleaseGithubDoc" (fun isSingle ->
     let repro = (sprintf "git@github.com:%s/%s.git" config.GithubUser config.GithubProject)
@@ -329,46 +371,66 @@ Target "All" (fun _ ->
     trace "All finished!"
 )
 
+Target "CheckWindows" (fun _ ->
+    if isLinux then failwith "can only do releases on windows." 
+)
+
 MyTarget "VersionBump" (fun _ ->
+    let repositoryHelperDir =  "__repository"
+    let workingDir =
+      if not isLocalBuild && buildServer = BuildServer.TeamFoundation then
+        let workingDir = repositoryHelperDir
+        // We are not in a git repository, because the .git folder is missing.
+        let repro = (sprintf "git@github.com:%s/%s.git" config.GithubUser config.GithubProject)
+        CleanDir workingDir
+        clone "" repro workingDir
+        checkoutBranch workingDir (Information.getCurrentSHA1("."))
+        fullclean (workingDir @@ "src")
+        CopyRecursive "src" (workingDir @@ "src") true |> printfn "%A"
+        workingDir
+      else ""
+      
     let doBranchUpdates = not isLocalBuild && (getBuildParamOrDefault "yaaf_merge_master" "false") = "true"
     if doBranchUpdates then
       // Make sure we are on develop (commit will fail otherwise)
-      Stash.push "" ""
-      try Branches.deleteBranch "" true "develop"
+      Stash.push workingDir ""
+      try Branches.deleteBranch workingDir true "develop"
       with e -> trace (sprintf "deletion of develop branch failed %O" e)
-      Branches.checkout "" true "develop"
-      try Stash.pop ""
+      Branches.checkout workingDir true "develop"
+      try Stash.pop workingDir
       with e -> trace (sprintf "stash pop failed %O" e)
 
     // Commit updates the SharedAssemblyInfo.cs files.
-    let changedFiles = Fake.Git.FileStatus.getChangedFilesInWorkingCopy "" "HEAD" |> Seq.toList
+    let changedFiles = Fake.Git.FileStatus.getChangedFilesInWorkingCopy workingDir "HEAD" |> Seq.toList
     if changedFiles |> Seq.isEmpty |> not then
         for (status, file) in changedFiles do
             printfn "File %s changed (%A)" file status
 
         let line = readLine "version bump commit? (y,n): " "y"
         if line = "y" then
-            StageAll ""
-            Commit "" (sprintf "Bump version to %s" config.Version)
+            StageAll workingDir
+            Commit workingDir (sprintf "Bump version to %s" config.Version)
 
     if doBranchUpdates then
-      try Branches.deleteBranch "" true "master"
+      try Branches.deleteBranch workingDir true "master"
       with e -> trace (sprintf "deletion of master branch failed %O" e)
-      Branches.checkout "" false "origin/master"
-      Branches.checkout "" true "master"
-      Merge.merge "" NoFastForwardFlag "develop"
+      Branches.checkout workingDir false "origin/master"
+      Branches.checkout workingDir true "master"
+      Merge.merge workingDir NoFastForwardFlag "develop"
 
-      Branches.pushBranch "" "origin" "master"
+      Branches.pushBranch workingDir "origin" "master"
       //try Branches.deleteTag "" config.Version
       //with e -> trace (sprintf "deletion of tag %s failed %O" config.Version e)
-      Branches.tag "" config.Version
-      Branches.pushTag "" "origin" config.Version
-      try Branches.deleteBranch "" true "develop"
+      Branches.tag workingDir config.Version
+      Branches.pushTag workingDir "origin" config.Version
+      try Branches.deleteBranch workingDir true "develop"
       with e -> trace (sprintf "deletion of develop branch failed %O" e)
-      Branches.checkout "" false "origin/develop"
-      Branches.checkout "" true "develop"
-      Merge.merge "" NoFastForwardFlag "master"
-      Branches.pushBranch "" "origin" "develop"
+      Branches.checkout workingDir false "origin/develop"
+      Branches.checkout workingDir true "develop"
+      Merge.merge workingDir NoFastForwardFlag "master"
+      Branches.pushBranch workingDir "origin" "develop"
+    CleanDir repositoryHelperDir
+    DeleteDir repositoryHelperDir
 )
 
 Target "Release" (fun _ ->
@@ -376,6 +438,7 @@ Target "Release" (fun _ ->
 )
 
 Target "ReadyForBuild" ignore
+Target "AfterBuild" ignore
 
 // Clean all
 "Clean" 
@@ -385,8 +448,8 @@ Target "ReadyForBuild" ignore
 
 "Clean"
   =?> ("RestorePackages", config.UseNuget)
+  =?> ("CreateDebugFiles", config.EnableDebugSymbolConversion)
   ==> "SetVersions"
-  =?> ("CreateProjectFiles", config.EnableProjectFileCreation)
   ==> "ReadyForBuild"
 
 config.BuildTargets
@@ -396,20 +459,21 @@ config.BuildTargets
           ==> buildName
           |> ignore
         buildName
-          ==> "All"
+          ==> "AfterBuild"
           |> ignore
     )
 
 // Dependencies
-"Clean" 
+"AfterBuild" 
   ==> "CopyToRelease"
+  =?> ("CreateReleaseSymbolFiles", config.EnableDebugSymbolConversion)
   ==> "NuGetPack"
-  ==> "LocalDoc"
+  ==> "AllDocs"
   ==> "All"
  
-"All" 
+"All"
+  =?> ("CheckWindows", config.RestrictReleaseToWindows)
   ==> "VersionBump"
-  =?> ("GithubDoc", config.EnableGithub)
   =?> ("ReleaseGithubDoc", config.EnableGithub)
   ==> "NuGetPush"
   ==> "Release"
