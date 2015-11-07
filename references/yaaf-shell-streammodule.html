@@ -90,8 +90,8 @@
             appendFront data s
           </code>
           <div class="tip" id="42">
-            <strong>Signature:</strong> data:&#39;?6201 -&gt; s:IStream&lt;&#39;?6201&gt; -&gt; IStream&lt;&#39;?6201&gt;<br />
-                          <strong>Type parameters:</strong> '?6201          </div>
+            <strong>Signature:</strong> data:&#39;?96032 -&gt; s:IStream&lt;&#39;?96032&gt; -&gt; IStream&lt;&#39;?96032&gt;<br />
+                          <strong>Type parameters:</strong> '?96032          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L414-414" class="github-link">
@@ -108,8 +108,8 @@
             buffer stream
           </code>
           <div class="tip" id="43">
-            <strong>Signature:</strong> stream:IStream&lt;&#39;?6197&gt; -&gt; IStream&lt;&#39;?6197&gt; * IStream&lt;&#39;?6197&gt;<br />
-                          <strong>Type parameters:</strong> '?6197          </div>
+            <strong>Signature:</strong> stream:IStream&lt;&#39;?96028&gt; -&gt; IStream&lt;&#39;?96028&gt; * IStream&lt;&#39;?96028&gt;<br />
+                          <strong>Type parameters:</strong> '?96028          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L404-404" class="github-link">
@@ -126,8 +126,8 @@
             combineReadAndWrite s1 s2
           </code>
           <div class="tip" id="44">
-            <strong>Signature:</strong> s1:IStream&lt;&#39;?6199&gt; -&gt; s2:IStream&lt;&#39;?6199&gt; -&gt; IStream&lt;&#39;?6199&gt;<br />
-                          <strong>Type parameters:</strong> '?6199          </div>
+            <strong>Signature:</strong> s1:IStream&lt;&#39;?96030&gt; -&gt; s2:IStream&lt;&#39;?96030&gt; -&gt; IStream&lt;&#39;?96030&gt;<br />
+                          <strong>Type parameters:</strong> '?96030          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L412-412" class="github-link">
@@ -144,8 +144,8 @@
             crossStream s1 s2
           </code>
           <div class="tip" id="45">
-            <strong>Signature:</strong> s1:IStream&lt;&#39;?6203&gt; -&gt; s2:IStream&lt;&#39;?6203&gt; -&gt; IStream&lt;&#39;?6203&gt; * IStream&lt;&#39;?6203&gt;<br />
-                          <strong>Type parameters:</strong> '?6203          </div>
+            <strong>Signature:</strong> s1:IStream&lt;&#39;?96034&gt; -&gt; s2:IStream&lt;&#39;?96034&gt; -&gt; IStream&lt;&#39;?96034&gt; * IStream&lt;&#39;?96034&gt;<br />
+                          <strong>Type parameters:</strong> '?96034          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L424-424" class="github-link">
@@ -216,8 +216,8 @@
             duplicate s
           </code>
           <div class="tip" id="49">
-            <strong>Signature:</strong> s:IStream&lt;&#39;?6212&gt; -&gt; IStream&lt;&#39;?6212&gt; * IStream&lt;&#39;?6212&gt;<br />
-                          <strong>Type parameters:</strong> '?6212          </div>
+            <strong>Signature:</strong> s:IStream&lt;&#39;a&gt; -&gt; IStream&lt;&#39;a&gt; * IStream&lt;&#39;a&gt;<br />
+                          <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L455-455" class="github-link">
@@ -239,8 +239,8 @@
             filterRead f s
           </code>
           <div class="tip" id="50">
-            <strong>Signature:</strong> f:(&#39;?6208 option -&gt; bool) -&gt; s:IStream&lt;&#39;?6208&gt; -&gt; IStream&lt;&#39;?6208&gt;<br />
-                          <strong>Type parameters:</strong> '?6208          </div>
+            <strong>Signature:</strong> f:(&#39;?96039 option -&gt; bool) -&gt; s:IStream&lt;&#39;?96039&gt; -&gt; IStream&lt;&#39;?96039&gt;<br />
+                          <strong>Type parameters:</strong> '?96039          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L434-434" class="github-link">
@@ -257,8 +257,8 @@
             filterWrite f s
           </code>
           <div class="tip" id="51">
-            <strong>Signature:</strong> f:(&#39;?6210 -&gt; bool) -&gt; s:IStream&lt;&#39;?6210&gt; -&gt; IStream&lt;&#39;?6210&gt;<br />
-                          <strong>Type parameters:</strong> '?6210          </div>
+            <strong>Signature:</strong> f:(&#39;?96041 -&gt; bool) -&gt; s:IStream&lt;&#39;?96041&gt; -&gt; IStream&lt;&#39;?96041&gt;<br />
+                          <strong>Type parameters:</strong> '?96041          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L444-444" class="github-link">
@@ -293,8 +293,8 @@
             fromReadWrite read write
           </code>
           <div class="tip" id="53">
-            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?6186 option&gt;) -&gt; write:(&#39;?6186 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?6186&gt;<br />
-                          <strong>Type parameters:</strong> '?6186          </div>
+            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?96017 option&gt;) -&gt; write:(&#39;?96017 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?96017&gt;<br />
+                          <strong>Type parameters:</strong> '?96017          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L343-343" class="github-link">
@@ -311,8 +311,8 @@
             fromReadWriteDispose dis read write
           </code>
           <div class="tip" id="54">
-            <strong>Signature:</strong> dis:(unit -&gt; unit) -&gt; read:(unit -&gt; Async&lt;&#39;?6184 option&gt;) -&gt; write:(&#39;?6184 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?6184&gt;<br />
-                          <strong>Type parameters:</strong> '?6184          </div>
+            <strong>Signature:</strong> dis:(unit -&gt; unit) -&gt; read:(unit -&gt; Async&lt;&#39;?96015 option&gt;) -&gt; write:(&#39;?96015 -&gt; Async&lt;unit&gt;) -&gt; IStream&lt;&#39;?96015&gt;<br />
+                          <strong>Type parameters:</strong> '?96015          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L335-335" class="github-link">
@@ -401,8 +401,8 @@
             limitedStream ()
           </code>
           <div class="tip" id="59">
-            <strong>Signature:</strong> unit -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;?6195&gt;<br />
-                          <strong>Type parameters:</strong> '?6195          </div>
+            <strong>Signature:</strong> unit -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;a&gt;<br />
+                          <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L403-403" class="github-link">
@@ -419,8 +419,8 @@
             map f g s
           </code>
           <div class="tip" id="60">
-            <strong>Signature:</strong> f:(&#39;?6205 option -&gt; &#39;?6206 option) -&gt; g:(&#39;?6206 -&gt; &#39;?6205) -&gt; s:IStream&lt;&#39;?6205&gt; -&gt; IStream&lt;&#39;?6206&gt;<br />
-                          <strong>Type parameters:</strong> '?6205, '?6206          </div>
+            <strong>Signature:</strong> f:(&#39;?96036 option -&gt; &#39;?96037 option) -&gt; g:(&#39;?96037 -&gt; &#39;?96036) -&gt; s:IStream&lt;&#39;?96036&gt; -&gt; IStream&lt;&#39;?96037&gt;<br />
+                          <strong>Type parameters:</strong> '?96036, '?96037          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L427-427" class="github-link">
@@ -437,8 +437,8 @@
             ofSeq write s
           </code>
           <div class="tip" id="61">
-            <strong>Signature:</strong> write:(&#39;?6218 -&gt; Async&lt;unit&gt;) -&gt; s:AsyncSeq&lt;&#39;?6218 option&gt; -&gt; IStream&lt;&#39;?6218&gt;<br />
-                          <strong>Type parameters:</strong> '?6218          </div>
+            <strong>Signature:</strong> write:(&#39;?96049 -&gt; Async&lt;unit&gt;) -&gt; s:AsyncSeq&lt;&#39;?96049 option&gt; -&gt; IStream&lt;&#39;?96049&gt;<br />
+                          <strong>Type parameters:</strong> '?96049          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L483-483" class="github-link">
@@ -455,8 +455,8 @@
             redirect bufferLen toStream fromStream
           </code>
           <div class="tip" id="62">
-            <strong>Signature:</strong> bufferLen:int -&gt; toStream:IStream&lt;&#39;?6220&gt; -&gt; fromStream:IStream&lt;&#39;?6220&gt; -&gt; int -&gt; bool -&gt; unit<br />
-                          <strong>Type parameters:</strong> '?6220          </div>
+            <strong>Signature:</strong> bufferLen:int -&gt; toStream:IStream&lt;&#39;a&gt; -&gt; fromStream:IStream&lt;&#39;a&gt; -&gt; int -&gt; bool -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'a          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L494-494" class="github-link">
@@ -473,8 +473,8 @@
             split f s
           </code>
           <div class="tip" id="63">
-            <strong>Signature:</strong> f:(&#39;?6214 option -&gt; bool) -&gt; s:IStream&lt;&#39;?6214&gt; -&gt; IStream&lt;&#39;?6214&gt; * IStream&lt;&#39;?6214&gt;<br />
-                          <strong>Type parameters:</strong> '?6214          </div>
+            <strong>Signature:</strong> f:(&#39;?96045 option -&gt; bool) -&gt; s:IStream&lt;&#39;?96045&gt; -&gt; IStream&lt;&#39;?96045&gt; * IStream&lt;&#39;?96045&gt;<br />
+                          <strong>Type parameters:</strong> '?96045          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L474-474" class="github-link">
@@ -491,8 +491,8 @@
             toCancelAbleStream s
           </code>
           <div class="tip" id="64">
-            <strong>Signature:</strong> s:IStream&lt;&#39;?6182&gt; -&gt; IStream&lt;&#39;?6182&gt;<br />
-                          <strong>Type parameters:</strong> '?6182          </div>
+            <strong>Signature:</strong> s:IStream&lt;&#39;?96013&gt; -&gt; IStream&lt;&#39;?96013&gt;<br />
+                          <strong>Type parameters:</strong> '?96013          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L334-334" class="github-link">
@@ -527,8 +527,8 @@
             toLimitedStream raw
           </code>
           <div class="tip" id="66">
-            <strong>Signature:</strong> raw:IStream&lt;&#39;?6193 option&gt; -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;?6193&gt;<br />
-                          <strong>Type parameters:</strong> '?6193          </div>
+            <strong>Signature:</strong> raw:IStream&lt;&#39;?96024 option&gt; -&gt; (unit -&gt; Async&lt;unit&gt;) * IStream&lt;&#39;?96024&gt;<br />
+                          <strong>Type parameters:</strong> '?96024          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L374-374" class="github-link">
@@ -545,8 +545,8 @@
             toMaybeRead read ()
           </code>
           <div class="tip" id="67">
-            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?6189&gt;) -&gt; unit -&gt; Async&lt;&#39;?6189 option&gt;<br />
-                          <strong>Type parameters:</strong> '?6189          </div>
+            <strong>Signature:</strong> read:(unit -&gt; Async&lt;&#39;?96020&gt;) -&gt; unit -&gt; Async&lt;&#39;?96020 option&gt;<br />
+                          <strong>Type parameters:</strong> '?96020          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L365-365" class="github-link">
@@ -563,8 +563,8 @@
             toSeq s
           </code>
           <div class="tip" id="68">
-            <strong>Signature:</strong> s:IStream&lt;&#39;?6216&gt; -&gt; AsyncSeq&lt;&#39;?6216 option&gt;<br />
-                          <strong>Type parameters:</strong> '?6216          </div>
+            <strong>Signature:</strong> s:IStream&lt;&#39;?96047&gt; -&gt; AsyncSeq&lt;&#39;?96047 option&gt;<br />
+                          <strong>Type parameters:</strong> '?96047          </div>
         </td>
         <td class="xmldoc">
             <a href="https://github.com/matthid/Yaaf.Shell/blob/master/src/source/Yaaf.Shell/IO.fs#L478-478" class="github-link">
