@@ -59,7 +59,6 @@ let buildConfig =
           Attribute.FileVersion config.Version
           Attribute.InformationalVersion config.Version]
       CreateFSharpAssemblyInfo "./src/SharedAssemblyInfo.fs" info)
-    EnableProjectFileCreation = false
     BuildTargets =
      [ { BuildParams.WithSolution with
           // The generated templates

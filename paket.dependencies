@@ -1,4 +1,5 @@
 source https://nuget.org/api/v2
+redirects on
 
 // Build
 nuget FsUnit
@@ -9,7 +10,7 @@ nuget NUnit.Runners
 nuget Yaaf.FSharp.Helper
 nuget Mono.Posix
 nuget FSharp.Core
-nuget NUnit == 2.6.3
+nuget NUnit
 // Test
 nuget Unquote
 nuget FSharp.Core
